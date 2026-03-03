@@ -6,7 +6,11 @@
       "Bash(pnpm prisma generate)",
       "Bash(ls /c/Users/tomiw/Documents/lademap/app/\\\\\\(home\\\\\\)/)",
       "Bash(ls \"/c/Users/tomiw/Documents/lademap/app/\\(home\\)/\")",
-      "Bash(ls \"/c/Users/tomiw/Documents/lademap/app/\\(home\\)/_components/\")"
+      "Bash(ls \"/c/Users/tomiw/Documents/lademap/app/\\(home\\)/_components/\")",
+      "Bash(node -e \"const pkg = require\\(''c:/Users/tomiw/Documents/lademap/node_modules/@prisma/client/package.json''\\); console.log\\(JSON.stringify\\(Object.keys\\(pkg.exports || {}\\), null, 2\\)\\)\")",
+      "Bash(node -e \"const p = require\\(''./node_modules/@prisma/client/package.json''\\); const e = p.exports[''./runtime/client'']; console.log\\(JSON.stringify\\(e, null, 2\\)\\)\")",
+      "Bash(pnpm run build)",
+      "Bash(node -e \"const { z } = require\\(''zod''\\); const schema = z.object\\({ name: z.string\\(\\) }\\); console.log\\(''~standard'' in schema, typeof schema[''~standard'']\\);\")"
     ]
   }
 }
