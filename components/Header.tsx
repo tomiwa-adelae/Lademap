@@ -51,7 +51,7 @@ export const Header = () => {
           <Button asChild size="md">
             <Link href="/contact">
               <IconMessageChatbot size={18} />
-              Contact us
+              Get a Quote
             </Link>
           </Button>
 

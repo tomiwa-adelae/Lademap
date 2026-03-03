@@ -1,13 +1,94 @@
 "use client";
 
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "sonner";
 import {
   IconSend,
   IconClock,
   IconShieldCheck,
   IconWorld,
+  IconLoader2,
 } from "@tabler/icons-react";
 
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const contactSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  company: z.string().optional(),
+  email: z.string().email("Enter a valid email address"),
+  phone: z.string().min(7, "Enter a valid phone number"),
+  subject: z.enum(["general", "tenders", "logistics", "rental", "technical"], {
+    error: "Please select an inquiry type",
+  }),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+
 export const ContactForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      company: "",
+      email: "",
+      phone: "",
+      subject: undefined,
+      message: "",
+    },
+  });
+
+  async function onSubmit(values: ContactFormValues) {
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      toast.success(
+        "Inquiry submitted! We'll be in touch within 2 business hours.",
+      );
+      form.reset();
+    } catch {
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="container">
@@ -21,8 +102,8 @@ export const ContactForm = () => {
               </h3>
               <p className="text-muted-foreground leading-relaxed">
                 Our logistics coordinators are standing by to analyze your
-                supply chain requirements. Expect a response within **2 business
-                hours.**
+                supply chain requirements. Expect a response within 2 business
+                hours.
               </p>
             </div>
 
@@ -62,53 +143,164 @@ export const ContactForm = () => {
           {/* Right: The Logistics Form */}
           <div className="lg:col-span-7">
             <div className="p-8 md:p-12 rounded-2xl bg-slate-50 border border-slate-100 shadow-sm">
-              <form className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">
-                    Full Name
-                  </label>
-                  <input type="text" placeholder="John Doe" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">
-                    Company
-                  </label>
-                  <input type="text" placeholder="Enterprise Ltd" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">
-                    Email Address
-                  </label>
-                  <input type="email" placeholder="john@company.com" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">
-                    Inquiry Type
-                  </label>
-                  <select className="contact-input appearance-none">
-                    <option>General Freight</option>
-                    <option>Customs Clearing</option>
-                    <option>Warehousing</option>
-                    <option>Partnership</option>
-                  </select>
-                </div>
-                <div className="md:col-span-2 space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">
-                    Your Message
-                  </label>
-                  <textarea
-                    placeholder="Describe your logistics needs, origin, or destination..."
-                    className="contact-input min-h-[150px] py-4"
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="grid md:grid-cols-2 gap-6"
+                >
+                  {/* First Name */}
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>First Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="John" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
 
-                <div className="md:col-span-2 pt-4">
-                  <button className="w-full h-16 bg-blue-600 hover:bg-slate-950 text-white font-black uppercase rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-lg shadow-blue-900/20">
-                    Send Inquiry
-                    <IconSend size={20} />
-                  </button>
-                </div>
-              </form>
+                  {/* Last Name */}
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Doe" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Email */}
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email Address</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="john@company.com"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Phone */}
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="tel"
+                            placeholder="+234 800 000 0000"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Company */}
+                  <FormField
+                    control={form.control}
+                    name="company"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Company <span className="text-muted-foreground font-normal">(optional)</span></FormLabel>
+                        <FormControl>
+                          <Input placeholder="Your company name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Subject */}
+                  <FormField
+                    control={form.control}
+                    name="subject"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Inquiry Type</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select inquiry type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="general">General Inquiry</SelectItem>
+                            <SelectItem value="tenders">Tenders & Bidding</SelectItem>
+                            <SelectItem value="logistics">Mobilization & Logistics</SelectItem>
+                            <SelectItem value="rental">Equipment Rental</SelectItem>
+                            <SelectItem value="technical">Technical Engineering</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Message */}
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>Your Message</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Describe your logistics needs, origin, destination, or project requirements..."
+                            className="min-h-37.5"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Submit */}
+                  <div className="md:col-span-2">
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <IconLoader2 size={20} className="animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          Send Inquiry
+                          <IconSend size={20} />
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </Form>
             </div>
           </div>
         </div>

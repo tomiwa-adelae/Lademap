@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { z } from "zod";
 import {
   IconMail,
   IconPhone,
   IconMapPin,
-  IconSend,
   IconLoader2,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
@@ -17,12 +16,12 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Loader } from "@/components/Loader";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -32,21 +31,51 @@ const contactSchema = z.object({
   inquiry: z.string().min(10, "Please provide more detail"),
 });
 
-export const ContactSection = () => {
-  const [isPending, setIsPending] = React.useTransition();
+type ContactFormValues = z.infer<typeof contactSchema>;
 
-  const form = useForm<z.infer<typeof contactSchema>>({
+export const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: { name: "", company: "", email: "", phone: "", inquiry: "" },
   });
 
-  function onSubmit(values: z.infer<typeof contactSchema>) {
-    setIsPending(async () => {
-      // Logic for /api/lademab/contact goes here
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulated delay
-      toast.success("Logistics request received. We will contact you shortly.");
+  async function onSubmit(values: ContactFormValues) {
+    setIsSubmitting(true);
+    try {
+      const nameParts = values.name.trim().split(/\s+/);
+      const firstName = nameParts[0];
+      const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "-";
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          company: values.company || null,
+          email: values.email,
+          phone: values.phone,
+          message: values.inquiry,
+          subject: "general",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      toast.success("Request received! We'll be in touch shortly.");
       form.reset();
-    });
+    } catch {
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -124,8 +153,13 @@ export const ContactSection = () => {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
+                          <FormLabel className="text-white">Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Full Name" {...field} />
+                            <Input
+                              className="text-white"
+                              placeholder="Full Name"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -136,8 +170,15 @@ export const ContactSection = () => {
                       name="company"
                       render={({ field }) => (
                         <FormItem>
+                          <FormLabel className="text-white">
+                            Company name
+                          </FormLabel>
                           <FormControl>
-                            <Input placeholder="Company Name" {...field} />
+                            <Input
+                              className="text-white"
+                              placeholder="Company Name"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -149,8 +190,14 @@ export const ContactSection = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
+                          <FormLabel className="text-white">Email</FormLabel>
                           <FormControl>
-                            <Input placeholder="Email Address" {...field} />
+                            <Input
+                              type="email"
+                              className="text-white"
+                              placeholder="Email Address"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -161,8 +208,15 @@ export const ContactSection = () => {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
+                          <FormLabel className="text-white">
+                            Phone number
+                          </FormLabel>
                           <FormControl>
-                            <Input placeholder="Phone Number" {...field} />
+                            <Input
+                              className="text-white"
+                              placeholder="Phone Number"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -175,10 +229,12 @@ export const ContactSection = () => {
                     name="inquiry"
                     render={({ field }) => (
                       <FormItem>
+                        <FormLabel className="text-white">Inquiry</FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="Describe your logistics needs (Origin, Destination, Cargo Type...)"
                             {...field}
+                            className="text-white"
                           />
                         </FormControl>
                         <FormMessage />
@@ -186,9 +242,12 @@ export const ContactSection = () => {
                     )}
                   />
 
-                  <Button disabled={isPending} type="submit" className="w-full">
-                    {isPending ? (
-                      <Loader text="Submitting..." />
+                  <Button disabled={isSubmitting} type="submit" className="w-full">
+                    {isSubmitting ? (
+                      <>
+                        <IconLoader2 size={18} className="animate-spin" />
+                        Submitting...
+                      </>
                     ) : (
                       "Submit Quote Request"
                     )}

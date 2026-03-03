@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls \"c:/Users/tomiw/Documents/lademab/app/\\(home\\)/\")"
+      "Bash(ls \"c:/Users/tomiw/Documents/lademab/app/\\(home\\)/\")",
+      "Bash(pnpm add @neondatabase/serverless)",
+      "Bash(pnpm prisma generate)",
+      "Bash(ls /c/Users/tomiw/Documents/lademap/app/\\\\\\(home\\\\\\)/)",
+      "Bash(ls \"/c/Users/tomiw/Documents/lademap/app/\\(home\\)/\")",
+      "Bash(ls \"/c/Users/tomiw/Documents/lademap/app/\\(home\\)/_components/\")"
     ]
   }
 }

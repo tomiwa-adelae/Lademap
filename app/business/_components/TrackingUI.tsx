@@ -9,6 +9,7 @@ import {
   IconMapPinFilled,
   IconSearch,
 } from "@tabler/icons-react";
+import { ComingSoon } from "@/components/ComingSoon";
 
 export const TrackingUI = () => {
   const [trackingId, setTrackingId] = useState("");
@@ -47,6 +48,7 @@ export const TrackingUI = () => {
             </div>
 
             <div className="relative group">
+              <ComingSoon />
               <input
                 type="text"
                 placeholder="Enter Tracking ID (e.g., LDM-8829)"
@@ -74,7 +76,8 @@ export const TrackingUI = () => {
           </div>
 
           {/* Right: The Visual Timeline */}
-          <div className="lg:col-span-7 bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border border-slate-100">
+          <div className="lg:col-span-7 bg-white p-8 md:p-12 rounded-[3rem] relative shadow-xl border border-slate-100">
+            <ComingSoon />
             <div className="flex justify-between items-center mb-12">
               <div>
                 <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">

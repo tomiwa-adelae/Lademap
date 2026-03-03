@@ -64,11 +64,11 @@ export const Sustainability = () => {
               <h2 className="text-sm font-semibold text-emerald-600 uppercase mb-4">
                 Future-Proofing
               </h2>
-              <h3 className="text-4xl md:text-5xl font-bold uppercase text-slate-900 leading-tight">
+              <h3 className="text-3xl md:text-4xl font-bold uppercase text-slate-900 leading-tight">
                 Logistics for a <br />
                 <span className="text-emerald-500">Greener</span> Tomorrow.
               </h3>
-              <p className="mt-6 text-slate-600 text-lg font-medium leading-relaxed">
+              <p className="mt-6 text-slate-600 text-lg  leading-relaxed">
                 We leverage cutting-edge technology to minimize our
                 environmental footprint while maximizing the efficiency of your
                 supply chain.
@@ -85,12 +85,10 @@ export const Sustainability = () => {
                     {item.icon}
                   </div>
                   <div>
-                    <h4 className="font-black uppercase text-slate-900 mb-1">
+                    <h4 className="font-bold uppercase text-slate-900 mb-1">
                       {item.title}
                     </h4>
-                    <p className="text-slate-500 text-sm font-medium">
-                      {item.desc}
-                    </p>
+                    <p className="text-slate-500 text-sm ">{item.desc}</p>
                   </div>
                 </div>
               ))}

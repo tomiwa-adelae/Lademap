@@ -11,7 +11,7 @@ export const Hero = () => {
   return (
     <section className="relative pt-32 pb-20 bg-white overflow-hidden">
       <div className="container">
-        <div className="max-w-4xl">
+        <div className="max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -30,10 +30,9 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold uppercase text-slate-900 leading-tight mb-8"
+            className="text-4xl md:text-5xl 2xl:text-7xl  font-bold uppercase text-slate-900 mb-8"
           >
-            Strategic <br />
-            <span className="text-blue-600">Partnerships.</span>{" "}
+            Strategic <span className="text-blue-600">Partnerships.</span>{" "}
             <br />
             Institutional Growth.
           </motion.h1>
@@ -42,7 +41,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-slate-500 max-w-2xl font-medium leading-relaxed"
+            className="text-lg text-slate-500 max-w-2xl  leading-relaxed"
           >
             LADEMAB Nigeria Limited collaborates with global enterprises to
             build resilient supply chain infrastructures that power the modern

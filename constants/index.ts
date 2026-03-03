@@ -1,9 +1,7 @@
 export const homeNavLinks = [
-  { label: "Home", slug: "/" },
   { label: "About Us", slug: "/about" },
   { label: "Our Services", slug: "/services" },
-  { label: "Market Impact", slug: "/impact" },
-  // { label: "Business", slug: "/business" },
+  { label: "Business", slug: "/business" },
 ];
 
 export const DEFAULT_IMAGE =

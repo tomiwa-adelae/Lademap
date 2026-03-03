@@ -92,7 +92,7 @@ export function MobileNavbar() {
         </ScrollArea>
         <SheetFooter className="mb-10">
           <Button asChild>
-            <Link href="/contact">Contact us</Link>
+            <Link href="/contact">Get a Quote</Link>
           </Button>
         </SheetFooter>
       </SheetContent>
