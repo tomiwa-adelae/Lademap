@@ -21,7 +21,7 @@ export const Logo = ({
     >
       <Image
         src="/assets/images/logo.png"
-        alt="FORBLIZ"
+        alt="LADEMAB"
         width={120}
         height={40}
         className={cn("w-auto object-contain", size)}
@@ -36,7 +36,7 @@ export const SmallLogo = ({ size = "h-12 md:h-16" }: { size?: string }) => {
     <Link href="/">
       <Image
         src="/assets/images/small-logo.png"
-        alt="FORBLIZ"
+        alt="LADEMAB"
         width={120}
         height={40}
         className={cn("w-auto object-contain", size)}

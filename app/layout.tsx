@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 import { Header } from "@/components/Header";
 import { Toaster } from "sonner";
 import { Footer } from "@/components/Footer";
@@ -10,49 +9,49 @@ const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Forbliz Global Resources | Heavy Equipment & Industrial Services",
-    template: "%s | Forbliz Global",
+    default: "LADEMAB Nigeria Limited | Logistics & Supply Chain Services",
+    template: "%s | LADEMAB",
   },
   description:
-    "Forbliz Global Resources Ltd is a premier industrial partner providing heavy equipment sourcing, civil infrastructure engineering, and site mobilization across Nigeria.",
+    "LADEMAB Nigeria Limited is Africa's most reliable logistics and supply chain partner. We provide freight forwarding, customs brokerage, warehousing, and end-to-end supply chain solutions across Nigeria and beyond.",
   keywords: [
-    "Forbliz Global Resources",
-    "Heavy Equipment Nigeria",
-    "Mining Support Services Africa",
-    "Civil Infrastructure Engineering",
-    "Earthmoving Machinery Rental",
-    "Site Mobilization Logistics",
-    "Excavator and Dozer Sourcing",
-    "Industrial Site Development",
-    "Forbliz Nigeria",
-    "AIRMOB Subsidiary",
-    "Construction Logistics Nigeria",
-    "Technical Site Engineering",
+    "LADEMAB Nigeria",
+    "Logistics Company Nigeria",
+    "Supply Chain Africa",
+    "Freight Forwarding Nigeria",
+    "Customs Brokerage Nigeria",
+    "Warehousing Lagos",
+    "Import Export Logistics Nigeria",
+    "Cargo Services Nigeria",
+    "Supply Chain Management Africa",
+    "International Freight Nigeria",
+    "Shipping Company Nigeria",
+    "lademab.com",
   ],
-  metadataBase: new URL("https://forbliz.com"), // Update to the actual Forbliz domain
-  authors: [{ name: "Forbliz Corporate Communications" }],
+  metadataBase: new URL("https://lademab.com"),
+  authors: [{ name: "LADEMAB Corporate Communications" }],
   openGraph: {
     type: "website",
     locale: "en_NG",
-    url: "https://forbliz.com",
-    siteName: "Forbliz Global Resources",
-    title: "Forbliz Global | Engineering & Equipment Excellence",
+    url: "https://lademab.com",
+    siteName: "LADEMAB Nigeria Limited",
+    title: "LADEMAB | Africa's Premier Logistics & Supply Chain Partner",
     description:
-      "A leader in heavy equipment solutions and civil engineering. We mobilize the power and precision needed for Africa's toughest terrains.",
+      "Enabling businesses to thrive in a connected global economy through innovative logistics, freight forwarding, and supply chain solutions across Africa.",
     images: [
       {
-        url: "/assets/images/og-image.png", // Use a high-res shot of heavy machinery or the Forbliz Amber logo
+        url: "/assets/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Forbliz Global Resources - Heavy Assets & Industrial Solutions",
+        alt: "LADEMAB Nigeria Limited - Logistics & Supply Chain Solutions",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forbliz Global | Heavy Equipment & Logistics",
+    title: "LADEMAB Nigeria | Logistics & Supply Chain Services",
     description:
-      "Precision engineering and asset sourcing for mining, civil, and industrial projects.",
+      "Africa's most reliable logistics and supply chain partner. Freight forwarding, customs brokerage, and warehousing across Nigeria.",
     images: ["/assets/images/og-image.png"],
   },
   robots: {
@@ -68,20 +67,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="og:image" content="/assets/images/og-image.png" />
-        <meta property="og:image" content="/assets/images/og-image.png" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=no"
-        />
-        <meta
-          data-n-head="ssr"
-          data-hid="viewport"
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1"
-        />
-      </Head>
       <body className={`${outfit.className} antialiased`}>
         <Header />
         <Toaster />
