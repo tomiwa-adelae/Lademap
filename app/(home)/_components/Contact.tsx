@@ -123,7 +123,9 @@ export const ContactSection = () => {
                   <p className="text-[10px] font-bold uppercase text-slate-400">
                     Call Operations
                   </p>
-                  <p className="font-bold text-slate-900">{PHONE}</p>
+                  <a href={`tel:${PHONE}`} className="font-bold text-slate-900">
+                    {PHONE}
+                  </a>
                 </div>
               </div>
 

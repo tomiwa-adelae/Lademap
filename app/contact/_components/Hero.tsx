@@ -56,18 +56,21 @@ export const Hero = () => {
               value: PHONE,
               icon: <IconHeadset size={24} />,
               color: "border-blue-500/30",
+              type: "phone",
             },
             {
               label: "Email Inquiry",
               value: EMAIL,
               icon: <IconMailOpened size={24} />,
               color: "border-slate-800",
+              type: "email",
             },
             {
               label: "Head Office",
               value: "Mafoluku, Lagos",
               icon: <IconMapPin size={24} />,
               color: "border-slate-800",
+              type: "address",
             },
           ].map((item, idx) => (
             <motion.div
@@ -80,9 +83,12 @@ export const Hero = () => {
               <div className="text-primary group-hover:text-white mb-4 transition-colors">
                 {item.icon}
               </div>
-              <p className="text-xs font-medium uppercase text-slate-500 group-hover:text-blue-200 mb-1">
+              <a
+                href={`${item.type === "phone" ? `tel:${item.value}` : `mailto:${item.value}`}`}
+                className="inline-block text-xs font-medium hover:underline uppercase text-slate-500 group-hover:text-blue-200 mb-1"
+              >
                 {item.label}
-              </p>
+              </a>
               <p className="text-lg font-bold text-white">{item.value}</p>
             </motion.div>
           ))}
