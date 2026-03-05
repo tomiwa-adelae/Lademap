@@ -101,8 +101,8 @@ export const OfficeLocation = () => {
                 LADEMAB Head Office
               </p>
               <p className="text-sm font-medium opacity-60 uppercase leading-relaxed">
-                28 Alhaja Shokoya Street, <br />
-                Mafoluku, Lagos, Nigeria.
+                Alhaji Shokoya Street, <br />
+                Mafoluku, Oshodi, Lagos.
               </p>
             </div>
           </motion.div>

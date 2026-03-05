@@ -67,7 +67,7 @@ export const Hero = () => {
             },
             {
               label: "Head Office",
-              value: "Mafoluku, Lagos",
+              value: "Alhaji Shokoya Street, Mafoluku. Oshodi, Lagos",
               icon: <IconMapPin size={24} />,
               color: "border-slate-800",
               type: "address",

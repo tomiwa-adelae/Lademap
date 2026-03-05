@@ -136,8 +136,8 @@ export const ContactSection = () => {
                     Head Office
                   </p>
                   <p className="font-bold text-slate-900 leading-tight">
-                    Alhaja Shokoya Street, <br />
-                    Mafoluku. Lagos, Nigeria.
+                    Alhaj1 Shokoya Street, <br />
+                    Mafoluku, Oshodi, Nigeria.
                   </p>
                 </div>
               </div>
