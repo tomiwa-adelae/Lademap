@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { EMAIL, PHONE } from "@/constants";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -46,7 +47,8 @@ export const ContactSection = () => {
     try {
       const nameParts = values.name.trim().split(/\s+/);
       const firstName = nameParts[0];
-      const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "-";
+      const lastName =
+        nameParts.length > 1 ? nameParts.slice(1).join(" ") : "-";
 
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -106,7 +108,12 @@ export const ContactSection = () => {
                   <p className="text-[10px] font-bold uppercase text-slate-400">
                     Email Us
                   </p>
-                  <p className="font-bold text-slate-900">info@lademab.com</p>
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="font-bold inline-block text-slate-900 hover:text-primary hover:underline"
+                  >
+                    {EMAIL}
+                  </a>
                 </div>
               </div>
 
@@ -116,7 +123,7 @@ export const ContactSection = () => {
                   <p className="text-[10px] font-bold uppercase text-slate-400">
                     Call Operations
                   </p>
-                  <p className="font-bold text-slate-900">+234-708-418-2254</p>
+                  <p className="font-bold text-slate-900">{PHONE}</p>
                 </div>
               </div>
 
@@ -242,7 +249,11 @@ export const ContactSection = () => {
                     )}
                   />
 
-                  <Button disabled={isSubmitting} type="submit" className="w-full">
+                  <Button
+                    disabled={isSubmitting}
+                    type="submit"
+                    className="w-full"
+                  >
                     {isSubmitting ? (
                       <>
                         <IconLoader2 size={18} className="animate-spin" />

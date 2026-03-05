@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { IconHeadset, IconMailOpened, IconMapPin } from "@tabler/icons-react";
+import { EMAIL, PHONE } from "@/constants";
 
 export const Hero = () => {
   return (
@@ -52,13 +53,13 @@ export const Hero = () => {
           {[
             {
               label: "Direct Line",
-              value: "+234-708-418-2254",
+              value: PHONE,
               icon: <IconHeadset size={24} />,
               color: "border-blue-500/30",
             },
             {
               label: "Email Inquiry",
-              value: "info@lademab.com",
+              value: EMAIL,
               icon: <IconMailOpened size={24} />,
               color: "border-slate-800",
             },
